@@ -2,7 +2,7 @@
 
 **Computational engineering. 3D modeling. Visual identity systems. Applied ML.**
 
-Built by **Rizky "Kiki" Meilandi Saputra** — Hybrid Architect from Indonesia.
+Built by **Rizky "Kiki" Meilandi Saputra** — Hybrid Architect from South Tangerang, Indonesia.
 
 ---
 
@@ -100,7 +100,7 @@ Vintage soul. Modern precision.
 
 **LinkedIn:** linkedin.com/in/rizky-m-b4904838a
 **Email:** rizky.meilandi007@gmail.com
-**Location:** Indonesia
+**Location:** South Tangerang, Indonesia
 **Open to:** Remote and hybrid roles — Indonesia and international
 
 ---
