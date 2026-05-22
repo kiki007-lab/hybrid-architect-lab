@@ -2,7 +2,7 @@
 
 **Computational engineering. 3D modeling. Visual identity systems. Applied ML.**
 
-Built by **Rizky "Kiki" Meilandi Saputra** — Hybrid Architect from South Tangerang, Indonesia.
+Built by **Rizky "Kiki" Meilandi Saputra** — Hybrid Architect from Indonesia.
 
 ---
 
@@ -32,13 +32,17 @@ maximum iteration depth. Built with NumPy and Matplotlib.
 
 ### VTOL Drone Parameter Calculator
 Engineering tool for calculating thrust-to-weight ratios, propeller
-sizing, and battery life estimates for configurable VTOL drone systems.
-Directly tied to active firefighting drone development work.
+sizing, power draw, and real-world flight endurance for configurable
+VTOL drone systems. Directly tied to active firefighting drone
+development work.
 
-**Status:** Planned
-**Stack:** Python 3.14
+Sample output: 12.5 kg hexacopter, 6× motors, 44.4V / 22Ah battery,
+15" props, TWR 2.2 — estimated hover endurance 10.5 minutes
+real-world corrected.
+
+**Status:** Complete
+**Stack:** Python 3.14 (stdlib only — no dependencies)
 **Folder:** `/vtol-calculator`
-
 ---
 
 ### Solar Cell Efficiency Tracker
@@ -96,7 +100,7 @@ Vintage soul. Modern precision.
 
 **LinkedIn:** linkedin.com/in/rizky-m-b4904838a
 **Email:** rizky.meilandi007@gmail.com
-**Location:** South Tangerang, Indonesia
+**Location:** Indonesia
 **Open to:** Remote and hybrid roles — Indonesia and international
 
 ---
