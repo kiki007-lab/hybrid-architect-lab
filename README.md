@@ -24,7 +24,7 @@ Mandelbrot set visualization demonstrating chaos theory principles.
 Custom Neo-Classical color mapping: deep red through gold to white at
 maximum iteration depth. Built with NumPy and Matplotlib.
 
-**Status:** In development
+**Status:** Complete — [view render](fractal-visualizer/mandelbrot_neoclassical.png)
 **Stack:** Python 3.14, NumPy, Matplotlib
 **Folder:** `/fractal-visualizer`
 
