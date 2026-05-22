@@ -1,0 +1,12 @@
+# Mandelbrot Fractal Visualizer — Dependencies
+# Author: Rizky Meilandi Saputra
+#
+# Minimal dependency surface by design.
+# numpy handles all vectorized complex arithmetic and array operations.
+# matplotlib handles colormap construction and image rendering.
+#
+# Both are pinned to minimum known-compatible versions.
+# Install with: pip install -r requirements.txt
+
+numpy>=1.24.0
+matplotlib>=3.7.0
