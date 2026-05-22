@@ -1,5 +1,5 @@
 """
-Module: mandelbrot_visualizer.py
+Module: mandelbrot_visualizer_v2.py
 Purpose: Render a high-resolution Mandelbrot set fractal with Neo-Classical aesthetic
 Author: Rizky Meilandi Saputra
 Dependencies: numpy, matplotlib
@@ -100,7 +100,7 @@ REAL_MAX: float = 1.0
 IMAG_MIN: float = -1.25
 IMAG_MAX: float = 1.25
 
-# Default output path. Overridable via --output at the command line.
+# Default output path. Overridable at runtime via: --output "D:\path\file.png"
 DEFAULT_OUTPUT_PATH: str = r"C:\Users\HP\Downloads\mandelbrot_neoclassical.png"
 
 # DPI for saved file. 150 is good for web; 300 for print.
@@ -108,30 +108,28 @@ OUTPUT_DPI: int = 150
 
 
 # ---------------------------------------------------------------------------
-# Argument parsing — isolated in its own function, never at module level
+# FIX 1: argparse isolated in its own function, never at module level.
+#
+# If parse_args() runs at module level, it fires at import time — meaning any
+# script, test runner, or notebook that imports this module will immediately
+# try to parse sys.argv from whatever called it. That either silently swallows
+# unrelated arguments or throws. Function-scoped parsing runs only when called.
 # ---------------------------------------------------------------------------
 
 def parse_arguments() -> argparse.Namespace:
     """
-    Parse command-line arguments and return the result.
-
-    Keeping argparse inside a function (rather than at module level) is a
-    structural requirement: if this module is ever imported — by a test runner,
-    a Jupyter notebook, or a zoom extension built on top of this script —
-    module-level parse_args() would fire immediately and try to consume
-    sys.argv from the calling process. That breaks silently or raises an error
-    depending on context. Function-scoped parsing runs only when explicitly called.
+    Parse command-line arguments. Called explicitly from main(), not at import time.
 
     Returns
     -------
     argparse.Namespace
-        Parsed arguments. Currently exposes:
+        Parsed arguments. Exposes:
             output (str): full path for the saved PNG.
     """
     parser = argparse.ArgumentParser(
         description="Render a Mandelbrot set fractal with Neo-Classical aesthetic.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="Example: python mandelbrot_visualizer.py --output D:\\renders\\fractal.png",
+        epilog='Example: python mandelbrot_visualizer_v2.py --output "D:\\renders\\fractal.png"',
     )
     parser.add_argument(
         "--output",
@@ -309,14 +307,6 @@ def render_mandelbrot(
     of the escape range. This visually amplifies the detail in the boundary
     region (low escape counts) where the interesting mathematics lives.
 
-    Directory creation
-    ------------------
-    os.makedirs(path, exist_ok=True) is used rather than a manual exists() check
-    followed by makedirs(). The manual pattern has a TOCTOU race condition:
-    the directory could be created by another process between the check and the
-    call, causing an OSError. exist_ok=True makes the operation atomic — it
-    creates the directory if absent and does nothing if already present.
-
     Parameters
     ----------
     escape_field : np.ndarray
@@ -342,8 +332,12 @@ def render_mandelbrot(
         # correct parameter range, but handled cleanly rather than crashing.
         normalized_field = escape_field
 
-    # Ensure the output directory exists before trying to write into it.
-    # exist_ok=True: no-op if directory already exists, creates it if not.
+    # FIX 2: os.makedirs with exist_ok=True — atomic, no race condition.
+    #
+    # The manual pattern (if not exists: makedirs) has a TOCTOU race: another
+    # process can create the directory between the check and the call, causing
+    # an OSError. exist_ok=True collapses both operations into one atomic call:
+    # creates the directory if absent, does nothing if already present.
     output_dir = os.path.dirname(output_path)
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)
@@ -360,7 +354,7 @@ def render_mandelbrot(
         normalized_field,
         cmap=colormap,
         origin="lower",
-        interpolation="bilinear",  # Smooth interpolation between pixels
+        interpolation="bilinear",
         aspect="auto",
     )
 
@@ -389,14 +383,15 @@ def render_mandelbrot(
 def main() -> None:
     """
     Orchestrate the full render pipeline:
-      1. Parse arguments (output path configurable via --output flag)
+      1. Parse arguments — output path configurable via --output flag
       2. Build the coordinate axes for the complex plane region
       3. Compute the vectorized escape field
       4. Apply the Neo-Classical colormap
       5. Save the output image
     """
 
-    # Parse here, inside main — not at module level. See parse_arguments() docstring.
+    # FIX 3: parse_arguments() called here inside main(), not at module level.
+    # See parse_arguments() docstring for why this placement is required.
     args = parse_arguments()
 
     print("[mandelbrot] initializing render...")
