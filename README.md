@@ -47,6 +47,7 @@ real-world corrected.
 **Stack:** Python 3.14 (stdlib only — no dependencies)
 
 **Folder:** `/vtol-calculator`
+
 ---
 
 ### Solar Cell Efficiency Tracker
