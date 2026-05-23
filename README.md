@@ -25,7 +25,9 @@ Custom Neo-Classical color mapping: deep red through gold to white at
 maximum iteration depth. Built with NumPy and Matplotlib.
 
 **Status:** Complete — [view render](fractal-visualizer/mandelbrot_neoclassical.png)
+
 **Stack:** Python 3.14, NumPy, Matplotlib
+
 **Folder:** `/fractal-visualizer`
 
 ---
@@ -41,7 +43,9 @@ Sample output: 12.5 kg hexacopter, 6× motors, 44.4V / 22Ah battery,
 real-world corrected.
 
 **Status:** Complete
+
 **Stack:** Python 3.14 (stdlib only — no dependencies)
+
 **Folder:** `/vtol-calculator`
 ---
 
@@ -51,7 +55,9 @@ variable environmental conditions. Outputs clean efficiency graphs
 and optimization recommendations.
 
 **Status:** Planned
+
 **Stack:** Python 3.14, NumPy, Matplotlib, scikit-learn
+
 **Folder:** `/solar-efficiency-tracker`
 
 ---
@@ -62,7 +68,9 @@ linear accelerator. Visualizes electromagnetic field interactions
 and projectile velocity across acceleration stages.
 
 **Status:** Planned
+
 **Stack:** Python 3.14, NumPy, Matplotlib
+
 **Folder:** `/mag-accelerator-sim`
 
 ---
@@ -99,8 +107,11 @@ Vintage soul. Modern precision.
 ## Contact
 
 **LinkedIn:** linkedin.com/in/rizky-m-b4904838a
+
 **Email:** rizky.meilandi007@gmail.com
+
 **Location:** South Tangerang, Indonesia
+
 **Open to:** Remote and hybrid roles — Indonesia and international
 
 ---
