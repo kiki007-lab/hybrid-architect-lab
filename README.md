@@ -58,7 +58,9 @@ Variable-driven architecture validated across two motor interface
 configurations: 38mm boss / 16mm BCD (primary) and 45mm boss / 19mm BCD.
 
 **Status:** Complete — [view render](vtol-motor-arm/vtol_arm_neoclassical.png)
+
 **Stack:** Onshape (parametric CAD), Blender (Cycles render), STEP AP242
+
 **Folder:** `/vtol-motor-arm`
 
 ---
