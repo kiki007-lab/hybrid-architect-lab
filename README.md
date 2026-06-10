@@ -50,6 +50,19 @@ real-world corrected.
 
 ---
 
+### VTOL Motor Arm — Parametric CAD
+Fully parametric motor arm for VTOL drone applications. 13 variables
+drive all geometry — cross-section, hollow shell, motor boss, bolt
+pattern, internal ribs, lightening pockets, fillets, and chamfers.
+Variable-driven architecture validated across two motor interface
+configurations: 38mm boss / 16mm BCD (primary) and 45mm boss / 19mm BCD.
+
+**Status:** Complete — [view render](vtol-motor-arm/vtol_arm_neoclassical.png)
+**Stack:** Onshape (parametric CAD), Blender (Cycles render), STEP AP242
+**Folder:** `/vtol-motor-arm`
+
+---
+
 ### Magnetic Linear Accelerator Simulation
 Physics simulation modeling Lorentz force behavior in a magnetic
 linear accelerator. Visualizes electromagnetic field interactions
