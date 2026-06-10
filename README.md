@@ -50,6 +50,19 @@ real-world corrected.
 
 ---
 
+### Magnetic Linear Accelerator Simulation
+Physics simulation modeling Lorentz force behavior in a magnetic
+linear accelerator. Visualizes electromagnetic field interactions
+and projectile velocity across acceleration stages.
+
+**Status:** In Development
+
+**Stack:** Python 3.14, NumPy, Matplotlib
+
+**Folder:** `/mag-accelerator-sim`
+
+---
+
 ### Solar Cell Efficiency Tracker
 ML-assisted simulation modeling solar cell efficiency curves under
 variable environmental conditions. Outputs clean efficiency graphs
@@ -60,19 +73,6 @@ and optimization recommendations.
 **Stack:** Python 3.14, NumPy, Matplotlib, scikit-learn
 
 **Folder:** `/solar-efficiency-tracker`
-
----
-
-### Magnetic Linear Accelerator Simulation
-Physics simulation modeling Lorentz force behavior in a magnetic
-linear accelerator. Visualizes electromagnetic field interactions
-and projectile velocity across acceleration stages.
-
-**Status:** Planned
-
-**Stack:** Python 3.14, NumPy, Matplotlib
-
-**Folder:** `/mag-accelerator-sim`
 
 ---
 
