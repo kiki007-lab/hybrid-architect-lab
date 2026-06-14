@@ -72,7 +72,7 @@ and projectile velocity across acceleration stages.
 
 **Status:** Complete
 
-**Stack:** Python 3.14, NumPy, Matplotlib
+**Stack:** Python 3.14, NumPy, Matplotlib (stdlib only — no physics libraries)
 
 **Folder:** `/mag-accelerator-sim`
 
