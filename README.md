@@ -1,3 +1,5 @@
+![Hybrid Architect Lab — Vintage soul. Modern precision.](hero-banner.png)
+
 # Hybrid Architect Lab
 
 **Computational engineering. 3D modeling. Visual identity systems. Applied ML.**
