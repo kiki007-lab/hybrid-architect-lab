@@ -100,9 +100,9 @@ Vintage soul. Modern precision.
 | Domain | Tools |
 |---|---|
 | Languages | Python, C++, JavaScript, HTML |
-| Environments | VS Code, Anaconda (planned) |
+| Environments | VS Code |
 | 3D Modeling | Blender (bpy), Onshape |
-| Data & ML | NumPy, Matplotlib, scikit-learn (planned) |
+| Data & ML | NumPy, Matplotlib |
 | Design | Canva, custom SVG systems |
 
 ---
