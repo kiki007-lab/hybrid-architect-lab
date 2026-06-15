@@ -24,7 +24,9 @@ Mandelbrot set visualization demonstrating chaos theory principles.
 Custom Neo-Classical color mapping: deep red through gold to white at
 maximum iteration depth. Built with NumPy and Matplotlib.
 
-**Status:** Complete — [view render](fractal-visualizer/mandelbrot_neoclassical.png)
+**Status:** Complete
+
+![Mandelbrot set rendered in the Neo-Classical palette — deep red through gold to white at maximum iteration depth](fractal-visualizer/mandelbrot_neoclassical.png)
 
 **Stack:** Python 3.14, NumPy, Matplotlib
 
@@ -57,7 +59,9 @@ pattern, internal ribs, lightening pockets, fillets, and chamfers.
 Variable-driven architecture validated across two motor interface
 configurations: 38mm boss / 16mm BCD (primary) and 45mm boss / 19mm BCD.
 
-**Status:** Complete — [view render](vtol-motor-arm/vtol_arm_neoclassical.png)
+**Status:** Complete
+
+![Parametric VTOL motor arm rendered in Blender Cycles — Neo-Classical palette, showing hollow shell, motor boss, and internal ribs](vtol-motor-arm/vtol_arm_neoclassical.png)
 
 **Stack:** Onshape (parametric CAD), Blender (Cycles render), STEP AP242
 
