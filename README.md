@@ -78,19 +78,6 @@ and projectile velocity across acceleration stages.
 
 ---
 
-### Solar Cell Efficiency Tracker
-ML-assisted simulation modeling solar cell efficiency curves under
-variable environmental conditions. Outputs clean efficiency graphs
-and optimization recommendations.
-
-**Status:** Planned
-
-**Stack:** Python 3.14, NumPy, Matplotlib, scikit-learn
-
-**Folder:** `/solar-efficiency-tracker`
-
----
-
 ## Visual Identity System
 
 All projects in this repository reflect the **Neo-Classical Engineering**
