@@ -100,15 +100,15 @@ REAL_MAX: float = 1.0
 IMAG_MIN: float = -1.25
 IMAG_MAX: float = 1.25
 
-# Default output path. Overridable at runtime via: --output "D:\path\file.png"
-DEFAULT_OUTPUT_PATH: str = r"C:\Users\HP\Downloads\mandelbrot_neoclassical.png"
+# Default to current directory — works on any OS. Override with --output for a different location.
+DEFAULT_OUTPUT_PATH: str = "mandelbrot_neoclassical.png"
 
 # DPI for saved file. 150 is good for web; 300 for print.
 OUTPUT_DPI: int = 150
 
 
 # ---------------------------------------------------------------------------
-# FIX 1: argparse isolated in its own function, never at module level.
+# DESIGN: argparse isolated in its own function, never at module level.
 #
 # If parse_args() runs at module level, it fires at import time — meaning any
 # script, test runner, or notebook that imports this module will immediately
@@ -129,7 +129,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Render a Mandelbrot set fractal with Neo-Classical aesthetic.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Example: python mandelbrot_visualizer_v2.py --output "D:\\renders\\fractal.png"',
+        epilog='Example: python mandelbrot_visualizer.py --output "D:\\renders\\fractal.png"',
     )
     parser.add_argument(
         "--output",
@@ -332,7 +332,7 @@ def render_mandelbrot(
         # correct parameter range, but handled cleanly rather than crashing.
         normalized_field = escape_field
 
-    # FIX 2: os.makedirs with exist_ok=True — atomic, no race condition.
+    # DESIGN: os.makedirs with exist_ok=True — atomic, no race condition.
     #
     # The manual pattern (if not exists: makedirs) has a TOCTOU race: another
     # process can create the directory between the check and the call, causing
@@ -390,7 +390,7 @@ def main() -> None:
       5. Save the output image
     """
 
-    # FIX 3: parse_arguments() called here inside main(), not at module level.
+    # DESIGN: parse_arguments() called here inside main(), not at module level.
     # See parse_arguments() docstring for why this placement is required.
     args = parse_arguments()
 
