@@ -3,7 +3,7 @@ Module: mandelbrot_visualizer.py
 Purpose: Render a high-resolution Mandelbrot set fractal with Neo-Classical aesthetic
 Author: Rizky Meilandi Saputra
 Dependencies: numpy, matplotlib
-Python: 3.10+
+Python: 3.10+ minimum (developed on 3.14)
 
 ---
 
