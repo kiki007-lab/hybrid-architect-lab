@@ -4,7 +4,8 @@ Purpose:     VTOL Firefighting Drone — Parameter & Feasibility Calculator
 Author:      Rizky Meilandi Saputra
 Repository:  github.com/kiki007-lab
 Version:     1.0.0
-Dependencies: None — pure Python 3.14+ standard library only
+Dependencies: None — pure Python standard library only
+Python:       3.10+ minimum (developed on 3.14)
 
 Context:
     This calculator is a direct tool from the VTOL firefighting drone
