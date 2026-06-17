@@ -7,14 +7,15 @@ WORKFLOW:
     2. File → Import → Wavefront OBJ → select VTOL_Motor_Arm.obj → Import OBJ
     3. Scripting tab → open this file → Run Script  (Alt+P)
     4. Press F12 to render
-    Output: C:\\Users\\HP\\Downloads\\vtol_arm_neoclassical.png
+    Output: vtol_arm_neoclassical.png  (saved next to the .blend file)
 """
 
 import bpy
 import math
 import mathutils
 
-OUTPUT_PATH = r"C:\Users\HP\Downloads\vtol_arm_neoclassical.png"
+# Default: save next to the .blend file. Override by editing this line if needed.
+OUTPUT_PATH = "vtol_arm_neoclassical.png"
 
 # ─── Find the imported arm ────────────────────────────────────────────────────
 arm = next((o for o in bpy.data.objects if o.type == 'MESH'), None)
