@@ -1,5 +1,5 @@
 """
-Module: mandelbrot_visualizer_v2.py
+Module: mandelbrot_visualizer.py
 Purpose: Render a high-resolution Mandelbrot set fractal with Neo-Classical aesthetic
 Author: Rizky Meilandi Saputra
 Dependencies: numpy, matplotlib
