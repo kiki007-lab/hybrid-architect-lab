@@ -15,6 +15,19 @@ of the canonical fractal, colored in a custom 4-stop palette (black → deep red
 renormalization to eliminate the iteration-count banding that ruins most
 naive Mandelbrot renders.
 
+## Mathematical context
+
+The Mandelbrot set lives at the boundary between order and chaos. For each
+complex point `c` in the plane, the iteration `z → z² + c` (starting at `z = 0`)
+either remains bounded forever or diverges to infinity. The set itself is the
+collection of points that never diverge — its interior is total stability, its
+boundary is infinite in length yet contained in a finite region of the complex
+plane, and its exterior is pure escape.
+
+This is deterministic chaos rendered visible: a single quadratic recurrence
+relation producing infinite structural complexity at the boundary. Not
+randomness — sensitivity to initial conditions made geometric.
+
 ## What it produces
 
 A PNG file like the one above. Default render:
@@ -56,7 +69,9 @@ Result: roughly **10–50× faster** than a Python loop at this resolution.
 Raw iteration counts produce visible ring-shaped color bands around the set.
 The standard fix is to compute a fractional escape value:
 
-    smooth_count = iteration - log2(log2(|z|))
+```
+smooth_count = iteration - log2(log2(|z|))
+```
 
 This uses the fact that `|z|` grows roughly exponentially after escape, so
 log-of-log measures how far *into* the current iteration the point escaped.
@@ -89,11 +104,11 @@ dark band.
 
 ## Stack
 
-- Python 3.10+
+- Python 3.10+ minimum (developed on 3.14)
 - NumPy ≥ 1.24
 - Matplotlib ≥ 3.7
 
-No other dependencies. Two libraries, one file, ~300 lines.
+No other dependencies. Two libraries, one file, ~440 lines.
 
 ## Files
 
@@ -105,10 +120,8 @@ fractal-visualizer/
 └── README.md                     # This file
 ```
 
-## Theory note
+---
 
-The Mandelbrot set lives at the boundary between order and chaos — interior
-points are bounded forever under `z → z² + c`, exterior points diverge to
-infinity, and the boundary between them is infinite in length yet contained
-in a finite region of the complex plane. This is deterministic chaos rendered
-visible: simple rule, infinite complexity. Not randomness.
+> *Beauty here is not decoration. It is the visible shape of a rule —
+> a single quadratic recurrence, iterated to the edge of the bounded
+> world, and colored in the language of restraint.*
