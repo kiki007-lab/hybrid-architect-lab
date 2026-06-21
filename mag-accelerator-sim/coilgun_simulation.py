@@ -1,7 +1,7 @@
 """
 Module:       coilgun_simulation.py
-Purpose:      Phase 4 of 6 — three-stage magnetic linear accelerator simulation.
-              Master integration loop. Corrected trigger timing from Phase 3
+Purpose:      Steps 5-6 of 6 — three-stage magnetic linear accelerator simulation.
+              Master integration loop. Corrected trigger timing from Steps 3-4
               diagnosis. Six-panel Neo-Classical output figure.
 Author:       Rizky Meilandi Saputra
 Repository:   github.com/kiki007-lab/hybrid-architect-lab
@@ -11,9 +11,9 @@ Python:       3.10+
 
 ---
 
-Phase 3 Timing Diagnosis
+Steps 3-4 Timing Diagnosis
 -------------------------
-Phase 3 (z_trigger = z_center − 60mm, v0 = 0) produced v_exit = 34.9 m/s
+Steps 3-4 (z_trigger = z_center − 60mm, v0 = 0) produced v_exit = 34.9 m/s
 at η = 9.52%. The velocity profile showed v_max = 246.3 m/s followed by
 catastrophic braking — the projectile crossed z_center at t ≈ 2.57ms, which
 is 0.6ms AFTER t_peak = 1.975ms. With I still large and the force sign flipped,
@@ -34,7 +34,7 @@ then rapidly as it enters the coil's strong-field zone (~40mm before center).
 This allows the current to build fully before the projectile encounters the
 strongest force gradient.
 
-For Stages 2 and 3 (v_entry > 0): trigger offset = min(v_entry × 3ms, 200mm).
+For Stages 2 and 3 (v_entry > 0): trigger offset = min(v_entry × 3ms, 300mm).
 The 3ms target represents 65% of π/ω_d, giving the projectile adequate time
 in the accelerating zone while keeping trigger positions within barrel geometry.
 
@@ -53,7 +53,7 @@ Trigger positions are computed dynamically (2-pass approach):
     Pass 2: Stages 1+2   → v2_exit
     Pass 3: Full 3 stages → final records + figure
 
-Known simplifications inherited from Phases 1–3:
+Known simplifications inherited from Steps 1–4:
     - Constant μ_r (ignores saturation, B_peak ≈ B_sat for this geometry)
     - Point-centroid force (L_proj = L_c/2, ~10% spatial error)
     - Constant-L RLC (real L rises 30–80% as slug enters bore)
@@ -87,7 +87,7 @@ from coilgun_dynamics    import Projectile, coupling_force, rk4_step
 # ═══════════════════════════════════════════════════════════════════════════════
 
 Z_CENTERS_M       = [0.200, 0.450, 0.700]   # stage coil centers [m]
-Z_TRIGGER_S1_M    = Z_CENTERS_M[0] - 0.060  # Stage 1: 60mm before center (Phase 3 optimum)
+Z_TRIGGER_S1_M    = Z_CENTERS_M[0] - 0.060  # Stage 1: 60mm before center (Steps 3-4 optimum)
 TRIGGER_T_TARGET  = 4.0e-3                  # target transit time for Stages 2/3 [s]
 TRIGGER_MAX_OFFSET = 0.300                   # cap trigger offset at 300mm [m]
 # 300mm chosen so that at v=119m/s (Stage 3 entry), transit = 300/119 = 2.52ms > t_peak = 1.975ms.
@@ -111,12 +111,12 @@ T_TOTAL     = 30e-3   # Full 3-stage simulation [s]
 FIGURE_WIDTH_IN  = 20.0
 FIGURE_HEIGHT_IN = 13.0
 OUTPUT_DPI       = 150
-DEFAULT_OUTPUT   = r"C:\Users\HP\Downloads\coilgun_neoclassical.png"
-SWEEP_OUTPUT     = r"C:\Users\HP\Downloads\coilgun_spacing_sweep.png"
+DEFAULT_OUTPUT   = "coilgun_neoclassical.png"
+SWEEP_OUTPUT     = "coilgun_spacing_sweep.png"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# NEO-CLASSICAL PALETTE  — locked to Phases 1–3
+# NEO-CLASSICAL PALETTE  — locked to Steps 1–4
 # ═══════════════════════════════════════════════════════════════════════════════
 
 NC_BG          = "#0a0a0a"
@@ -234,7 +234,7 @@ def compute_trigger_offset(v_entry: float) -> float:
     arrives while I is declining (not yet zero) — maximising the accelerating
     impulse without overshooting into severe braking.
 
-    Capped at TRIGGER_MAX_OFFSET = 200mm (barrel geometry constraint).
+    Capped at TRIGGER_MAX_OFFSET = 300mm (barrel geometry constraint).
     For v_entry ≈ 0 (Stage 1): returns fixed 120mm.
     """
     if v_entry < 2.0:
@@ -701,7 +701,7 @@ def render_six_panel(
     )
 
     fig.suptitle(
-        "COILGUN MULTI-STAGE SIMULATION — PHASE 4 OF 6  |  "
+        "COILGUN THREE-STAGE ACCELERATOR — MULTI-STAGE SIMULATION  |  Steps 5-6 of 6  |  "
         f"v_final = {v_final:.1f} m/s  ·  η = {eta_cumul:.1f}%",
         color=NC_TITLE, fontsize=11.5, fontweight="bold", y=0.95,
     )
@@ -1103,7 +1103,7 @@ def render_spacing_sweep(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Coilgun Phase 4: three-stage multi-coil simulation.",
+        description="Coilgun Steps 5-6: three-stage multi-coil simulation.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("--output", type=str, default=DEFAULT_OUTPUT,
@@ -1122,8 +1122,8 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     """
-    Phase 4 pipeline:
-      1. Construct locked geometry (Phases 1–3 parameters).
+    Steps 5-6 pipeline:
+      1. Construct locked geometry (Steps 1–4 parameters).
       2. Pass 1 — Stage 1 only: compute v1_exit.
       3. Compute Stage 2 trigger from v1_exit.
       4. Pass 2 — Stages 1+2: compute v2_exit.
@@ -1136,11 +1136,11 @@ def main() -> None:
 
     print()
     print("  ╔══════════════════════════════════════════════════════════════╗")
-    print("  ║   COILGUN SIMULATION — PHASE 4: THREE-STAGE CHAINING        ║")
+    print("  ║   COILGUN SIMULATION — STEPS 5-6: THREE-STAGE CHAINING        ║")
     print("  ║   Rizky Meilandi Saputra  |  hybrid-architect-lab           ║")
     print("  ╚══════════════════════════════════════════════════════════════╝")
 
-    # ── locked geometry from Phases 1–3 ──────────────────────────────────────
+    # ── locked geometry from Steps 1–4 ──────────────────────────────────────
     coil = CoilGeometry(
         radius_m        = 0.020,
         length_m        = 0.080,
@@ -1236,7 +1236,7 @@ def main() -> None:
                      delta_ke, args.output, OUTPUT_DPI)
 
     print()
-    print(f"  [done]  Phase 4 complete.")
+    print(f"  [done]  Steps 5-6 complete. Simulation finished.")
     print(f"          v_final = {v_final:.2f} m/s  |  "
           f"ΔKE = {records[-1].kinetic_energy_j:.1f} J  |  "
           f"η = {eta_cum:.1f}%")

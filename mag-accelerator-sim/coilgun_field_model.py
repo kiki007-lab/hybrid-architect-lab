@@ -1,6 +1,6 @@
 """
 Module:       coilgun_field_model.py
-Purpose:      Phase 1 of 6 — magnetic field model for the coilgun simulation.
+Purpose:      Step 1 of 6 — magnetic field model for the coilgun simulation.
               Computes and analytically verifies the on-axis normalized field
               profile f(z) and its gradient f′(z) for a finite solenoid.
               All downstream modules (circuit, force coupling, dynamics, render)
@@ -86,7 +86,7 @@ MU_0: float = 4.0 * math.pi * 1e-7
 FIGURE_WIDTH_IN:  float = 18.0
 FIGURE_HEIGHT_IN: float = 6.5
 OUTPUT_DPI:       int   = 150
-DEFAULT_OUTPUT_PATH: str = r"C:\Users\HP\Downloads\coilgun_field_analysis.png"
+DEFAULT_OUTPUT_PATH: str = "coilgun_field_analysis.png"
 
 Z_SPAN_FACTOR: float = 3.0
 # Plot from −(Z_SPAN_FACTOR × L_c) to +(Z_SPAN_FACTOR × L_c).
@@ -128,7 +128,7 @@ class CoilGeometry:
     Geometric specification for one acceleration stage coil.
 
     Current I(t) is intentionally absent from this class — it belongs to the
-    circuit model (Phase 2). This separation means the entire field geometry
+    circuit model (Step 2). This separation means the entire field geometry
     can be constructed, verified, and rendered before any capacitor or resistance
     value is defined. Each module tests its own inputs; nothing assumes the others
     work correctly.
@@ -165,7 +165,7 @@ class CoilGeometry:
 
             L = μ₀ · n² · π · R_c² · L_c
 
-        KNOWN SIMPLIFICATION — flagged here and documented in Phase 2:
+        KNOWN SIMPLIFICATION — flagged here and documented in Step 2:
         This is the empty-coil value. When the ferromagnetic slug enters the
         bore, L increases by 30–80% (depending on μ_r), reducing peak current
         and shifting the RLC pulse timing. Treated as a conservative estimate;
@@ -690,7 +690,7 @@ def render_field_analysis(
 
     # ── Figure-level title and parameter subtitle ──────────────────────────────
     fig.suptitle(
-        "COILGUN FIELD MODEL — FINITE SOLENOID  |  Phase 1 of 6",
+        "COILGUN FIELD MODEL — FINITE SOLENOID  |  Step 1 of 6",
         color=NC_TITLE, fontsize=12, fontweight="bold", y=1.04,
     )
     fig.text(
@@ -731,12 +731,12 @@ def render_field_analysis(
 def parse_arguments() -> argparse.Namespace:
     """
     Parse CLI arguments. Defined as a function (not module-level) so it never
-    fires at import time — same discipline as mandelbrot_visualizer_v2.py.
+    fires at import time — same discipline as the other portfolio render modules.
     """
     parser = argparse.ArgumentParser(
-        description="Coilgun Phase 1: compute and verify f(z), f′(z), render field analysis.",
+        description="Coilgun Step 1: compute and verify f(z), f′(z), render field analysis.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Example: python coilgun_field_model.py --output "D:\\renders\\field.png"',
+        epilog='Example: python coilgun_field_model.py --output ./coilgun_field_analysis.png',
     )
     parser.add_argument(
         "--output",
@@ -753,7 +753,7 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     """
-    Orchestrate Phase 1: define coil geometry → verify field functions
+    Orchestrate Step 1: define coil geometry → verify field functions
     analytically → render the 3-panel Neo-Classical output figure.
 
     Demo coil parameters (20 mm bore, 80 mm winding, 2000 turns/m)
@@ -770,13 +770,13 @@ def main() -> None:
 
     print()
     print("  ╔════════════════════════════════════════════════════════╗")
-    print("  ║   COILGUN SIMULATION — PHASE 1: FIELD MODEL           ║")
+    print("  ║   COILGUN SIMULATION — STEP 1: FIELD MODEL           ║")
     print("  ║   Rizky Meilandi Saputra  |  hybrid-architect-lab     ║")
     print("  ╚════════════════════════════════════════════════════════╝")
 
     # ── Define the demo coil ──────────────────────────────────────────────────
-    # Phase 2 onward imports CoilGeometry from this module and instantiates
-    # its own configurations. This instance is for standalone Phase 1 testing.
+    # Step 2 onward imports CoilGeometry from this module and instantiates
+    # its own configurations. This instance is for standalone Step 1 testing.
     coil = CoilGeometry(
         radius_m        = 0.020,    # 20 mm bore radius
         length_m        = 0.080,    # 80 mm winding length
@@ -819,8 +819,8 @@ def main() -> None:
     print(f"  [statistics]  peak |f′| × L_c     = {fp_pk * coil.length_m:.4f}  "
           f"[dimensionless force scale factor]")
     print()
-    print("  [done]   Phase 1 complete. "
-          "Proceed to Phase 2: RLC circuit model.")
+    print("  [done]   Step 1 complete. "
+          "Proceed to Step 2: RLC circuit model.")
     print()
 
 

@@ -1,8 +1,8 @@
 """
 Module:       coilgun_dynamics.py
-Purpose:      Phase 3 of 6 — force coupling and single-stage projectile dynamics.
-              Couples the field model (Phase 1: f(z), f′(z)) with the circuit
-              model (Phase 2: I(t)) through the Lorentz force expression, then
+Purpose:      Steps 3-4 of 6 — force coupling and single-stage projectile dynamics.
+              Couples the field model (Step 1: f(z), f′(z)) with the circuit
+              model (Step 2: I(t)) through the Lorentz force expression, then
               integrates the equations of motion via RK4. Produces the first
               module with a velocity output — the number the simulation exists
               to compute.
@@ -22,7 +22,7 @@ derived from the gradient of the stored magnetic energy:
     F_z = −d/dz [−χ_m · V_proj · B²/(2μ₀)]
         = (χ_m · V_proj / (2μ₀)) · d(B²)/dz
 
-Substituting B_z(z,t) = μ₀ · n · I(t) · f(z) from Phase 1:
+Substituting B_z(z,t) = μ₀ · n · I(t) · f(z) from Step 1:
 
     d(B²)/dz = 2 · (μ₀·n·I)² · f(z) · f′(z)
 
@@ -99,11 +99,11 @@ T_TOTAL:       float = 12e-3     # 12 ms total — captures pulse + constant-v c
 FIGURE_WIDTH_IN:     float = 18.0
 FIGURE_HEIGHT_IN:    float = 6.5
 OUTPUT_DPI:          int   = 150
-DEFAULT_OUTPUT_PATH: str   = r"C:\Users\HP\Downloads\coilgun_dynamics.png"
+DEFAULT_OUTPUT_PATH: str   = "coilgun_dynamics.png"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# NEO-CLASSICAL PALETTE — locked to Phase 1 and Phase 2
+# NEO-CLASSICAL PALETTE — locked to Step 1 and Step 2
 # ═══════════════════════════════════════════════════════════════════════════════
 
 NC_BACKGROUND: str = "#0a0a0a"
@@ -214,7 +214,7 @@ def coupling_force(
     The I² dependence is the key: force scales quadratically with current,
     so doubling I quadruples the force. It also means the force decays at
     rate 2α (not α) — the effective force window is narrower than the current
-    pulse. Verified in Phase 2 Panel 2.
+    pulse. Verified in Step 2 Panel 2.
 
     Parameters
     ──────────
@@ -223,7 +223,7 @@ def coupling_force(
     I : float
         Instantaneous coil current [A]. I = 0 → F = 0, always.
     coil : CoilGeometry
-        Coil geometry from Phase 1.
+        Coil geometry from Step 1.
     projectile : Projectile
         Projectile physical parameters.
 
@@ -429,11 +429,11 @@ def verify_dynamics(
     assert err1 < TOL_ZERO, f"[1] FAILED — F(I=0) = {F1}"
 
     # ── [2] F = 0 at z_rel = 0 with I = I_peak ────────────────────────────────
-    # f′(0) = 0 exactly (Phase 1 verification). This propagates exactly.
+    # f′(0) = 0 exactly (Step 1 verification). This propagates exactly.
     F2 = coupling_force(0.0, I_test, stage.coil, projectile)
     err2 = abs(F2)
     print()
-    print(f"  [2]  coupling_force(z=0, I=I_peak) = 0  [f′(0) = 0, Phase 1 verified]")
+    print(f"  [2]  coupling_force(z=0, I=I_peak) = 0  [f′(0) = 0, Step 1 verified]")
     _sep()
     print(f"       I_peak = {I_test:.2f} A  |  z_rel = 0 (coil center)")
     print(f"       Computed : {F2:.6e} N")
@@ -723,7 +723,7 @@ def render_dynamics(
 
     # ── figure-level title and parameter subtitle ──────────────────────────────
     fig.suptitle(
-        "COILGUN SINGLE-STAGE DYNAMICS — PHASE 3 OF 6",
+        "COILGUN SINGLE-STAGE DYNAMICS — FORCE COUPLING & RK4 INTEGRATION  |  Steps 3-4 of 6",
         color=NC_TITLE, fontsize=12, fontweight="bold", y=1.04,
     )
     fig.text(
@@ -758,9 +758,9 @@ def render_dynamics(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Coilgun Phase 3: force coupling and single-stage dynamics.",
+        description="Coilgun Steps 3-4: force coupling and single-stage dynamics.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Example: python coilgun_dynamics.py --output "D:\\renders\\dynamics.png"',
+        epilog='Example: python coilgun_dynamics.py --output ./coilgun_dynamics.png',
     )
     parser.add_argument(
         "--output", type=str, default=DEFAULT_OUTPUT_PATH,
@@ -775,8 +775,8 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     """
-    Phase 3 pipeline:
-      1. Construct locked geometry (Phase 1 parameters) + demo circuit (Phase 2)
+    Steps 3-4 pipeline:
+      1. Construct locked geometry (Step 1 parameters) + demo circuit (Step 2)
       2. Construct projectile (50 g iron slug)
       3. Run 6-check verification — computes simulation internally for check [6]
       4. Render 3-panel Neo-Classical figure from simulation records
@@ -791,11 +791,11 @@ def main() -> None:
 
     print()
     print("  ╔════════════════════════════════════════════════════════════╗")
-    print("  ║   COILGUN SIMULATION — PHASE 3: FORCE + DYNAMICS          ║")
+    print("  ║   COILGUN SIMULATION — STEPS 3-4: FORCE + DYNAMICS          ║")
     print("  ║   Rizky Meilandi Saputra  |  hybrid-architect-lab         ║")
     print("  ╚════════════════════════════════════════════════════════════╝")
 
-    # ── construct locked Phase 1/2 geometry ───────────────────────────────────
+    # ── construct locked Step 1/2 geometry ───────────────────────────────────
     coil = CoilGeometry(
         radius_m        = 0.020,
         length_m        = 0.080,
@@ -869,7 +869,7 @@ def main() -> None:
     print("  [simplifications]  Constant-L RLC (real L rises 30-80% as slug enters bore)")
     print("  [simplifications]  No eddy current drag, no friction, no gravity")
     print()
-    print("  [done]   Phase 3 complete. Proceed to Phase 4: multi-stage chaining.")
+    print("  [done]   Steps 3-4 complete. Proceed to Steps 5-6: multi-stage chaining.")
     print()
 
 

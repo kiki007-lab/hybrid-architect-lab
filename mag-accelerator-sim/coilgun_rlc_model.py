@@ -1,6 +1,6 @@
 """
 Module:       coilgun_rlc_model.py
-Purpose:      Phase 2 of 6 — RLC capacitor discharge circuit model.
+Purpose:      Step 2 of 6 — RLC capacitor discharge circuit model.
               Provides rlc_current(t, stage) returning I(t) in amperes, and
               rlc_envelope(t, stage) returning the exponential decay envelope.
               AccelerationStage enforces underdamped operation on construction.
@@ -8,7 +8,7 @@ Purpose:      Phase 2 of 6 — RLC capacitor discharge circuit model.
 Author:       Rizky Meilandi Saputra
 Repository:   github.com/kiki007-lab/hybrid-architect-lab
 Project:      Project 4 — Magnetic Linear Accelerator Simulation
-Dependencies: coilgun_field_model (Phase 1), numpy, matplotlib
+Dependencies: coilgun_field_model (Step 1), numpy, matplotlib
 Python:       3.10+
 
 ---
@@ -17,7 +17,7 @@ Physical Context
 ----------------
 Each acceleration stage fires by dumping a charged capacitor into its coil.
 The resulting current pulse generates the magnetic field B_z = μ₀·n·I·f(z)
-(Phase 1), which forces the projectile through F_z ∝ f(z)·f′(z)·I²(t).
+(Step 1), which forces the projectile through F_z ∝ f(z)·f′(z)·I²(t).
 This module supplies the I(t) half of that expression.
 
 Governing ODE — Series RLC Circuit
@@ -103,7 +103,7 @@ from coilgun_field_model import CoilGeometry
 FIGURE_WIDTH_IN:     float = 14.0
 FIGURE_HEIGHT_IN:    float = 6.5
 OUTPUT_DPI:          int   = 150
-DEFAULT_OUTPUT_PATH: str   = r"C:\Users\HP\Downloads\coilgun_rlc_analysis.png"
+DEFAULT_OUTPUT_PATH: str   = "coilgun_rlc_analysis.png"
 
 T_SPAN_FACTOR: float = 2.5
 # Plot from t = 0 to T_SPAN_FACTOR × pulse_duration (first zero of I).
@@ -114,7 +114,7 @@ T_RESOLUTION: int = 3000
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# NEO-CLASSICAL PALETTE  — locked to Phase 1 and Phase 1 extension
+# NEO-CLASSICAL PALETTE  — locked to Step 1 and Step 1 extension
 # ═══════════════════════════════════════════════════════════════════════════════
 
 NC_BACKGROUND: str = "#0a0a0a"
@@ -165,7 +165,7 @@ class AccelerationStage:
     """
     Complete specification of one coilgun acceleration stage.
 
-    Combines the coil geometry (Phase 1), capacitor bank, and resistive
+    Combines the coil geometry (Step 1), capacitor bank, and resistive
     losses into a single object from which all RLC circuit parameters can
     be derived. All electrical properties are computed from stored fields —
     nothing is pre-baked as a magic number.
@@ -190,7 +190,7 @@ class AccelerationStage:
     center_position_m : float
         Axial position of the coil center z_c [m] along the barrel. This
         is the origin of the coil-centered frame used by field_profile and
-        field_gradient in Phase 1.
+        field_gradient in Step 1.
     trigger_position_m : float
         Projectile position z_T [m] at which this stage fires. Must satisfy
         z_T < z_c (projectile has not yet reached the coil center). Optimally
@@ -737,7 +737,7 @@ def render_rlc_analysis(
 
     # ── figure-level title and parameter subtitle ──────────────────────────────
     fig.suptitle(
-        "COILGUN RLC CIRCUIT MODEL — CAPACITOR DISCHARGE  |  Phase 2 of 6",
+        "COILGUN RLC CIRCUIT MODEL — CAPACITOR DISCHARGE  |  Step 2 of 6",
         color=NC_TITLE, fontsize=12, fontweight="bold", y=1.04,
     )
     fig.text(
@@ -772,9 +772,9 @@ def render_rlc_analysis(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Coilgun Phase 2: RLC circuit model — capacitor discharge current.",
+        description="Coilgun Step 2: RLC circuit model — capacitor discharge current.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Example: python coilgun_rlc_model.py --output "D:\\renders\\rlc.png"',
+        epilog='Example: python coilgun_rlc_model.py --output ./coilgun_rlc_analysis.png',
     )
     parser.add_argument(
         "--output", type=str, default=DEFAULT_OUTPUT_PATH,
@@ -789,12 +789,12 @@ def parse_arguments() -> argparse.Namespace:
 
 def main() -> None:
     """
-    Phase 2 pipeline: construct demo stage → verify → render.
+    Step 2 pipeline: construct demo stage → verify → render.
 
     Demo stage parameters are chosen to represent a realistic single-stage
-    coilgun with the Phase 1 locked geometry (R_c=20mm, L_c=80mm, n=2000):
+    coilgun with the Step 1 locked geometry (R_c=20mm, L_c=80mm, n=2000):
 
-    Coil: L = 505.3 μH (air-core inductance from Phase 1 geometry).
+    Coil: L = 505.3 μH (air-core inductance from Step 1 geometry).
     Capacitor: C = 4 mF, V₀ = 400 V → E = 320 J per discharge.
     Resistance: R = 0.15 Ω — achievable with AWG 14 magnet wire or
                 parallel-wound sections. Sets ζ = 0.211 (well underdamped).
@@ -810,15 +810,15 @@ def main() -> None:
 
     print()
     print("  ╔════════════════════════════════════════════════════════╗")
-    print("  ║   COILGUN SIMULATION — PHASE 2: RLC CIRCUIT MODEL     ║")
+    print("  ║   COILGUN SIMULATION — STEP 2: RLC CIRCUIT MODEL     ║")
     print("  ║   Rizky Meilandi Saputra  |  hybrid-architect-lab     ║")
     print("  ╚════════════════════════════════════════════════════════╝")
 
     # ── construct demo stage ──────────────────────────────────────────────────
     demo_coil = CoilGeometry(
-        radius_m        = 0.020,    # R_c = 20 mm  — locked from Phase 1
-        length_m        = 0.080,    # L_c = 80 mm  — locked from Phase 1
-        turns_per_meter = 2000.0,   # n = 2000 turns/m  — locked from Phase 1
+        radius_m        = 0.020,    # R_c = 20 mm  — locked from Step 1
+        length_m        = 0.080,    # L_c = 80 mm  — locked from Step 1
+        turns_per_meter = 2000.0,   # n = 2000 turns/m  — locked from Step 1
     )
     demo_capacitor = CapacitorBank(
         capacitance_f     = 4.0e-3,   # 4 mF
@@ -870,7 +870,7 @@ def main() -> None:
     print(f"  [statistics]  t_peak/t_zero  = {demo_stage.t_peak_s/demo_stage.pulse_duration_s:.3f}  "
           f"(peak at {demo_stage.t_peak_s/demo_stage.pulse_duration_s*100:.1f}% of pulse)")
     print()
-    print("  [done]   Phase 2 complete. Proceed to Phase 3: force coupling model.")
+    print("  [done]   Step 2 complete. Proceed to Steps 3-4: force coupling and dynamics.")
     print()
 
 
