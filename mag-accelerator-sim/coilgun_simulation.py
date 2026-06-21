@@ -383,7 +383,7 @@ def render_six_panel(
 
     fig = plt.figure(figsize=(FIGURE_WIDTH_IN, FIGURE_HEIGHT_IN))
     gs  = fig.add_gridspec(2, 3, hspace=0.50, wspace=0.42,
-                            left=0.06, right=0.97, top=0.89, bottom=0.07)
+                            left=0.06, right=0.97, top=0.84, bottom=0.07)
     ax1 = fig.add_subplot(gs[0, 0])
     ax2 = fig.add_subplot(gs[0, 1])
     ax3 = fig.add_subplot(gs[0, 2])
@@ -703,11 +703,11 @@ def render_six_panel(
     fig.suptitle(
         "COILGUN THREE-STAGE ACCELERATOR — MULTI-STAGE SIMULATION  |  Steps 5-6 of 6  |  "
         f"v_final = {v_final:.1f} m/s  ·  η = {eta_cumul:.1f}%",
-        color=NC_TITLE, fontsize=11.5, fontweight="bold", y=0.95,
+        color=NC_TITLE, fontsize=11.5, fontweight="bold", y=0.965,
     )
-    fig.text(0.5, 0.918, projectile_info,
+    fig.text(0.5, 0.925, projectile_info,
              ha="center", va="top", color=NC_TICK, fontsize=8.0)
-    fig.text(0.5, 0.902, stage_info,
+    fig.text(0.5, 0.905, stage_info,
              ha="center", va="top", color=NC_TICK, fontsize=7.5)
 
     # ── save ──────────────────────────────────────────────────────────────────
