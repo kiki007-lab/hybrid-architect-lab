@@ -1,15 +1,15 @@
 """
 Module:       coilgun_aspect_sweep.py
-Purpose:      Phase 1 extension — constant-volume aspect ratio sweep.
+Purpose:      Step 1 extension — constant-volume aspect ratio sweep.
               Sweeps AR = L_c/R_c from 0.5 to 8.0 (50 points) while holding
-              V_ref = π·R_c²·L_c constant at the Phase 1 demo coil volume.
+              V_ref = π·R_c²·L_c constant at the Step 1 demo coil volume.
               Computes peak |f′| and force scale factor peak(f′)·L_c for each
               geometry, identifies the optimal ratio, and saves a 2-panel
               Neo-Classical figure.
 Author:       Rizky Meilandi Saputra
 Repository:   github.com/kiki007-lab/hybrid-architect-lab
 Project:      Project 4 — Magnetic Linear Accelerator Simulation
-Dependencies: coilgun_field_model (Phase 1), numpy, matplotlib
+Dependencies: coilgun_field_model (Step 1), numpy, matplotlib
 Python:       3.10+
 
 Key result
@@ -72,7 +72,7 @@ from coilgun_field_model import CoilGeometry, field_gradient
 # REFERENCE GEOMETRY AND SWEEP PARAMETERS
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Phase 1 demo coil — held fixed as the volume reference for the sweep
+# Step 1 demo coil — held fixed as the volume reference for the sweep
 DEMO_R_C: float = 0.020   # m  (20 mm bore radius)
 DEMO_L_C: float = 0.080   # m  (80 mm winding length)
 DEMO_AR:  float = DEMO_L_C / DEMO_R_C   # = 4.0
@@ -88,11 +88,11 @@ N_POINTS: int   = 50
 FIGURE_WIDTH_IN:     float = 14.0
 FIGURE_HEIGHT_IN:    float = 6.5
 OUTPUT_DPI:          int   = 150
-DEFAULT_OUTPUT_PATH: str   = r"C:\Users\HP\Downloads\coilgun_aspect_sweep.png"
+DEFAULT_OUTPUT_PATH: str   = "coilgun_aspect_sweep.png"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# NEO-CLASSICAL PALETTE  — mirrored exactly from Phase 1, no divergence
+# NEO-CLASSICAL PALETTE  — mirrored exactly from Step 1, no divergence
 # ═══════════════════════════════════════════════════════════════════════════════
 
 NC_BACKGROUND: str = "#0a0a0a"
@@ -384,9 +384,9 @@ def render_sweep(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Coilgun Phase 1 extension: constant-volume aspect ratio sweep.",
+        description="Coilgun Step 1 extension: constant-volume aspect ratio sweep.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Example: python coilgun_aspect_sweep.py --output "D:\\renders\\sweep.png"',
+        epilog='Example: python coilgun_aspect_sweep.py --output ./coilgun_aspect_sweep.png',
     )
     parser.add_argument(
         "--output", type=str, default=DEFAULT_OUTPUT_PATH,
@@ -411,7 +411,7 @@ def main() -> None:
     print()
     print("  ╔════════════════════════════════════════════════════════════╗")
     print("  ║   COILGUN SIMULATION — ASPECT RATIO SWEEP                 ║")
-    print("  ║   Phase 1 Extension  |  constant-volume geometry study    ║")
+    print("  ║   Step 1 Extension   |  constant-volume geometry study    ║")
     print("  ╚════════════════════════════════════════════════════════════╝")
     print()
     print(f"  [reference]  Demo coil: R_c = {DEMO_R_C*1e3:.1f} mm  "
@@ -474,7 +474,7 @@ def main() -> None:
                  args.output, OUTPUT_DPI)
 
     print()
-    print("  [done]       Phase 1 extension complete.")
+    print("  [done]       Step 1 extension complete.")
     print()
 
 
