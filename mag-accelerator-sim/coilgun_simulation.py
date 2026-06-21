@@ -963,10 +963,13 @@ def render_spacing_sweep(
     })
 
     fig, (ax1, ax2) = plt.subplots(
-        1, 2, figsize=(13.0, 5.5),
+        1, 2, figsize=(13.0, 5.65),
         gridspec_kw={"wspace": 0.42},
     )
     fig.patch.set_facecolor(NC_BG)
+    # Reserve a dedicated header band so the gold title and gray metadata
+    # never collide with each other or with the two panel titles.
+    fig.subplots_adjust(top=0.78)
 
     def _style(ax, xlabel: str, ylabel: str, title: str) -> None:
         ax.set_facecolor(NC_BG)
@@ -1082,10 +1085,10 @@ def render_spacing_sweep(
     fig.suptitle(
         "COILGUN STAGE SPACING SWEEP  |  "
         f"Minimum viable spacing = {cross_str}",
-        color=NC_TITLE, fontsize=11.0, fontweight="bold", y=1.02,
+        color=NC_TITLE, fontsize=11.0, fontweight="bold", y=0.965,
     )
     fig.text(
-        0.5, 0.995,
+        0.5, 0.915,
         "C = 4 mF  ·  V₀ = 400 V  ·  R = 0.15 Ω  ·  "
         "m = 50 g  ·  μ_r = 200  ·  3 stages  ·  fixed Stage 1 offset = 60 mm",
         ha="center", va="top", color=NC_TICK, fontsize=7.8,
