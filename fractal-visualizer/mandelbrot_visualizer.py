@@ -324,13 +324,18 @@ def render_mandelbrot(
     # Deliberate aesthetic choice: redistributes color range so that the fractal
     # boundary (low escape count, small values) receives more color resolution.
     # Linear normalization would compress all boundary detail into a thin dark band.
-    field_max = escape_field.max()
+    # Smooth escape renormalization can produce small negative values for a few
+    # very fast-escaping exterior pixels. They are valid "dark exterior" samples,
+    # but sqrt() requires a non-negative domain. Clip only for color mapping —
+    # the raw escape field is left untouched.
+    color_field = np.clip(escape_field, 0.0, None)
+    field_max = color_field.max()
     if field_max > 0:
-        normalized_field = np.sqrt(escape_field / field_max)
+        normalized_field = np.sqrt(color_field / field_max)
     else:
         # Degenerate case: everything inside the set. Shouldn't happen with a
         # correct parameter range, but handled cleanly rather than crashing.
-        normalized_field = escape_field
+        normalized_field = color_field
 
     # DESIGN: os.makedirs with exist_ok=True — atomic, no race condition.
     #
